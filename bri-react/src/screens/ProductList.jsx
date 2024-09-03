@@ -7,6 +7,7 @@ const ProductList = () => {
   const { products, setProducts } = useProducts();
   
   const handleDelete = (id) => {
+    console.log(id, products)
     if (window.confirm('Are you sure you want to delete this product?')) {
       setProducts(products.filter(product => product.id !== id));
     }

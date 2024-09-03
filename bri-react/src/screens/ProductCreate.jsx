@@ -5,9 +5,11 @@ import Textarea from '../components/form/Textarea';
 import Select from '../components/form/Select';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { useProducts } from '../contexts/ProductContext';
 
 function CreateProduct() {
     const navigateTo = useNavigate()
+    const { setProducts } = useProducts();
     const [product, setProduct] = useState({
         id: '',
         name: '',
@@ -98,11 +100,10 @@ function CreateProduct() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (isFormValid) {
-          setProduct({
-            ...product,
-            id: uuidv4()
-          })
-          console.log('Form submitted successfully', product);
+          const newProduct = {...product, id: uuidv4()} 
+          setProduct(newProduct)
+          setProducts(prevProducts => [...prevProducts, newProduct]);
+          console.log('Form submitted successfully', newProduct);
           navigateTo('/products');
         } else {
           console.log('Form is invalid');
