@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useProducts } from '../contexts/ProductContext';
 
 const ProductList = () => {
   const navigate = useNavigate();
-  const [products, setProducts] = useState([
-    { id: 1, name: 'Product 1', category: 'Category 1', freshness: 'Fresh', price: 100 },
-    { id: 2, name: 'Product 2', category: 'Category 2', freshness: 'New', price: 150 },
-  ]);
+  const { products, setProducts } = useProducts();
   
   const handleDelete = (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
