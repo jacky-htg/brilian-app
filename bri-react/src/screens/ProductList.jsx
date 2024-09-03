@@ -4,12 +4,12 @@ import { useProducts } from '../contexts/ProductContext';
 
 const ProductList = () => {
   const navigate = useNavigate();
-  const { products, setProducts } = useProducts();
+  const { products, deleteProduct } = useProducts();
   
   const handleDelete = (id) => {
     console.log(id, products)
     if (window.confirm('Are you sure you want to delete this product?')) {
-      setProducts(products.filter(product => product.id !== id));
+        deleteProduct(id);
     }
   };
 

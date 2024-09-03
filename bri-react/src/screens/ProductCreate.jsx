@@ -9,7 +9,7 @@ import { useProducts } from '../contexts/ProductContext';
 
 function CreateProduct() {
     const navigateTo = useNavigate()
-    const { setProducts } = useProducts();
+    const { addProduct } = useProducts();
     const [product, setProduct] = useState({
         id: '',
         name: '',
@@ -102,7 +102,7 @@ function CreateProduct() {
         if (isFormValid) {
           const newProduct = {...product, id: uuidv4()} 
           setProduct(newProduct)
-          setProducts(prevProducts => [...prevProducts, newProduct]);
+          addProduct(newProduct);
           console.log('Form submitted successfully', newProduct);
           navigateTo('/products');
         } else {
