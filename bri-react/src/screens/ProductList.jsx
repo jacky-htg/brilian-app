@@ -1,8 +1,7 @@
 import React, { useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchProducts } from '../redux/actions/productAction';
-
+import { fetchProducts, deleteProduct } from '../redux/actions/productAction';
 
 const ProductList = () => {
   const navigate = useNavigate();
@@ -14,9 +13,8 @@ const ProductList = () => {
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    console.log(id, products)
     if (window.confirm('Are you sure you want to delete this product?')) {
-        //deleteProduct(id);
+        dispatch(deleteProduct(id));
     }
   };
 
@@ -31,7 +29,7 @@ const ProductList = () => {
       </button>
       <table style={styles.table}>
         <thead style={styles.header}>
-          <tr>
+          <tr key={0}>
             <th>No</th>
             <th>Name</th>
             <th>Category</th>

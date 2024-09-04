@@ -1,9 +1,15 @@
-/*export const addProduct = (product) => async (dispatch) => {
+export const addProduct = (product) => async (dispatch) => {
     try {
-      const response = await fetch('http://localhost:8080/products', {
+      const { id, ...productWithoutId } = product; 
+      const tempProduct = {
+        ...productWithoutId,
+        price: parseFloat(productWithoutId.price),
+      };
+
+      const response = await fetch('http://localhost:9000/products', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(product),
+        body: JSON.stringify(tempProduct),
       });
       const newProduct = await response.json();
       dispatch({ type: 'ADD_PRODUCT', payload: newProduct });
@@ -11,12 +17,12 @@
       console.error('Failed to add product:', error);
     }
   };
-  */
+
   export const fetchProducts = () => async (dispatch) => {
     dispatch({ type: 'FETCH_PRODUCTS_REQUEST' });
   
     try {
-      const response = await fetch('http://localhost:8080/products');
+      const response = await fetch('http://localhost:9000/products');
       const data = await response.json();
       dispatch({ type: 'FETCH_PRODUCTS_SUCCESS', payload: data });
     } catch (error) {
@@ -24,12 +30,11 @@
     }
   };
 
-/*  export const deleteProduct = (id) => async (dispatch) => {
+export const deleteProduct = (id) => async (dispatch) => {
     try {
-      await fetch(`http://localhost:8080/products/${id}`, { method: 'DELETE' });
+      await fetch(`http://localhost:9000/products/${id}`, { method: 'DELETE' });
       dispatch({ type: 'DELETE_PRODUCT', payload: id });
     } catch (error) {
       console.error('Failed to delete product:', error);
     }
   };
-  */

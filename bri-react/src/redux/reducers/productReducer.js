@@ -1,22 +1,27 @@
-// reducer.js
-import { v4 as uuidv4 } from 'uuid';
-
 const initialState = {
-  products: []
+  products: [],
+  loading: false,
+  error: null
 };
 
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_PRODUCT':
-      const { id, ...productWithoutId } = action.payload; 
-      const newProduct = {
-        ...productWithoutId,
-        price: parseFloat(productWithoutId.price),
-      };
+    case 'FETCH_PRODUCTS_REQUEST':
+      return { ...state, loading: true, error: null };
 
+    case 'FETCH_PRODUCTS_SUCCESS':
+      return { ...state, loading: false, products: action.payload };
+
+    case 'FETCH_PRODUCTS_FAILURE':
+      return { ...state, loading: false, error: action.payload };
+
+    case 'ADD_PRODUCT':
+      return { ...state, products: [...state.products, action.payload] };
+
+    case 'DELETE_PRODUCT':
       return {
         ...state,
-        products: [...state.products, newProduct]
+        products: state.products.filter(p => p.id !== action.payload)
       };
 
     default:

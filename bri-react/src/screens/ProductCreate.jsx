@@ -5,7 +5,7 @@ import Textarea from '../components/form/Textarea';
 import Select from '../components/form/Select';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-//import { addProduct } from '../redux/actions/productAction'; 
+import { addProduct } from '../redux/actions/productAction'; 
 
 function CreateProduct() {
     const navigateTo = useNavigate()
@@ -62,18 +62,6 @@ function CreateProduct() {
         validateForm();
     }, [validateForm]);
 
-    const anotherFunc = useCallback(() => {
-      console.log(product)
-      console.log(isTouched)
-    }, [product, isTouched])
-
-    function myCallback() {
-      console.log(product)
-      console.log(errors)
-      anotherFunc()
-    }
-    useEffect(myCallback, [product, errors, anotherFunc]);
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setProduct((prevProduct) => ({
@@ -101,7 +89,7 @@ function CreateProduct() {
         e.preventDefault();
         if (isFormValid) {
           setProduct(product)
-          //dispatch(addProduct(product));
+          dispatch(addProduct(product));
           navigateTo('/products');
         } else {
           console.log('Form is invalid');
