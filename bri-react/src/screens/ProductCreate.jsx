@@ -4,7 +4,6 @@ import Radio from '../components/form/Radio';
 import Textarea from '../components/form/Textarea';
 import Select from '../components/form/Select';
 import { useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
 import { useProducts } from '../contexts/ProductContext';
 
 function CreateProduct() {
@@ -100,7 +99,12 @@ function CreateProduct() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (isFormValid) {
-          const newProduct = {...product, id: uuidv4()} 
+          const { id, ...productWithoutId } = product; 
+          const newProduct = { 
+            ...productWithoutId, 
+            price: parseFloat(product.price), 
+          };
+
           setProduct(newProduct)
           addProduct(newProduct);
           console.log('Form submitted successfully', newProduct);
