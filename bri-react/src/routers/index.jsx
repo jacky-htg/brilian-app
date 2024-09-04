@@ -4,7 +4,6 @@ import ListProduct from '../screens/ProductList'
 import CreateProduct from '../screens/ProductCreate'
 import ViewProduct from '../screens/ProductView'
 import PrivateRoute from './PrivateRoute'
-import Providers from '../contexts/Providers'
 
 function Router() {
     const publicRoutes = [
@@ -30,7 +29,6 @@ function Router() {
     ]
     return (
         <BrowserRouter>
-        <Providers>
             <Routes>
                 {
                    publicRoutes.map((route, index) => 
@@ -54,7 +52,6 @@ function Router() {
                     )
                 }
             </Routes>
-        </Providers>
         </BrowserRouter>
     )
 }

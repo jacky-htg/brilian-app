@@ -4,11 +4,12 @@ import Radio from '../components/form/Radio';
 import Textarea from '../components/form/Textarea';
 import Select from '../components/form/Select';
 import { useNavigate } from 'react-router-dom';
-import { useProducts } from '../contexts/ProductContext';
+import { useDispatch } from 'react-redux';
+//import { addProduct } from '../redux/actions/productAction'; 
 
 function CreateProduct() {
     const navigateTo = useNavigate()
-    const { addProduct } = useProducts();
+    const dispatch = useDispatch();
     const [product, setProduct] = useState({
         id: '',
         name: '',
@@ -99,15 +100,8 @@ function CreateProduct() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (isFormValid) {
-          const { id, ...productWithoutId } = product; 
-          const newProduct = { 
-            ...productWithoutId, 
-            price: parseFloat(product.price), 
-          };
-
-          setProduct(newProduct)
-          addProduct(newProduct);
-          console.log('Form submitted successfully', newProduct);
+          setProduct(product)
+          //dispatch(addProduct(product));
           navigateTo('/products');
         } else {
           console.log('Form is invalid');

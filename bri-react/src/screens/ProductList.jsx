@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useProducts } from '../contexts/ProductContext';
+import { fetchProducts } from '../redux/actions/productAction';
+
 
 const ProductList = () => {
   const navigate = useNavigate();
-  const { products, deleteProduct } = useProducts();
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.products.products);
   
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
   const handleDelete = (id) => {
     console.log(id, products)
     if (window.confirm('Are you sure you want to delete this product?')) {
-        deleteProduct(id);
+        //deleteProduct(id);
     }
   };
 
